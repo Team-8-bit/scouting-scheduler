@@ -10,7 +10,7 @@ class GoogleSheet(private val id: String) {
     private val credentials: GoogleCredentials = GoogleCredentials.fromStream(this.javaClass.getResourceAsStream("credentials.json")).createScoped("https://www.googleapis.com/auth/drive")
     private val jsonFactory: JsonFactory = GsonFactory.getDefaultInstance()
 
-    operator fun get(range: String): List<List<String>> {
+    operator fun get(range: String): SheetData {
         credentials.refreshIfExpired()
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
         val service = Sheets.Builder(httpTransport, jsonFactory, HttpCredentialsAdapter(credentials)).setApplicationName("Inventory App").build()
@@ -18,11 +18,15 @@ class GoogleSheet(private val id: String) {
         return response.getValues().map { it.map(Any::toString) }
     }
 
-    operator fun set(range: String, values: List<List<String>>) {
+    operator fun set(range: String, values: SheetData) {
         credentials.refreshIfExpired()
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
         val service = Sheets.Builder(httpTransport, jsonFactory, HttpCredentialsAdapter(credentials)).setApplicationName("Inventory App").build()
         val newRange = ValueRange().setValues(values)
         service.spreadsheets().values().update(id, range, newRange).setValueInputOption("USER_ENTERED").execute()
     }
+
 }
+
+typealias SheetData = List<List<String>>
+typealias MutableSheetData = MutableList<MutableList<String>>

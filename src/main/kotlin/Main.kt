@@ -1,5 +1,3 @@
-import kotlinx.serialization.Serializable
-
 suspend fun main(args: Array<String>) {
     val iterator = args.iterator()
     while (iterator.hasNext()) {
@@ -16,8 +14,3 @@ suspend fun main(args: Array<String>) {
         }
     }
 }
-
-@Serializable
-data class EventData(
-    val name: String?,
-)
