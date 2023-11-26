@@ -1,13 +1,13 @@
 class Generator(val sheetID: String, val eventID: String) {
     private val googleSheet = GoogleSheet(sheetID)
 
-
-
     suspend fun generate() {
+        println("Updating match data...")
         val matchData = TBA.getEventMatches(eventID).filter { it.comp_level == "qm" }.sortedBy { it.match_number }
         val matchScoutingData = getMatchScoutingData(matchData)
         googleSheet["MatchScouting!A2:H1000"] = matchScoutingData
 
+        println("Updating pit data...")
         val pitData = TBA.getEventTeams(eventID).map { it.removePrefix("frc") }.sortedBy { it.toIntOrNull() }
         val pitScoutingData = getPitScoutingData(pitData)
         googleSheet["PitScouting!A2:A1000"] = pitScoutingData

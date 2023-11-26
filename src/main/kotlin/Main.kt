@@ -5,4 +5,5 @@ suspend fun main() {
     )
 
     generator.generate()
+    println("Done!")
 }
