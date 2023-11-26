@@ -1,10 +1,8 @@
-fun main(args: Array<String>) {
-    val iterator = args.iterator()
-    while (iterator.hasNext()) {
-        when (iterator.next()) {
-            "--test" -> {
+suspend fun main() {
+    val generator = Generator(
+        sheetID = "1bi-MqGwfqEBgKGzkezM0M2CW7xJw066YwshSpxw6uM4",
+        eventID = "2023azgl"
+    )
 
-            }
-        }
-    }
+    generator.generate()
 }
