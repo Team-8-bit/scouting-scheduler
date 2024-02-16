@@ -1,6 +1,6 @@
 class Generator(val eventID: String) {
 
-    suspend fun generate(): ScheduleInformation {
+    suspend fun generate(): Schedule {
         println("Updating match data...")
         val matches = TBA.getEventMatches(eventID).filter { it.comp_level == "qm" }.sortedBy { it.match_number }
         val processedMatches = matches.map {
@@ -35,7 +35,7 @@ class Generator(val eventID: String) {
             schedules[12]!![match] = it.blueThree
         }
 
-        return ScheduleInformation(
+        return Schedule(
             eventID = eventID,
             superscoutIDs = listOf(7, 8, 9, 10, 11, 12),
             scoutingSchedule = schedules.mapValues { ScoutingSchedule(it.value) }
