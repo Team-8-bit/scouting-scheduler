@@ -1,11 +1,10 @@
-class Generator(val sheetID: String, val eventID: String) {
-    private val googleSheet = GoogleSheet(sheetID)
+class Generator(val eventID: String) {
 
     suspend fun generate() {
         println("Updating match data...")
         val matchData = TBA.getEventMatches(eventID).filter { it.comp_level == "qm" }.sortedBy { it.match_number }
+
         val matchScoutingData = getMatchScoutingData(matchData)
-        googleSheet["MatchScouting!A2:H1000"] = matchScoutingData
     }
 
     private fun getMatchScoutingData(matches: List<Match>): MutableSheetData {

@@ -14,8 +14,6 @@ repositories {
 val ktor_version: String by project
 
 dependencies {
-    implementation("com.google.auth:google-auth-library-oauth2-http:1.20.0")
-    implementation("com.google.apis:google-api-services-sheets:v4-rev20230815-2.0.0")
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
