@@ -36,6 +36,7 @@ class Generator(val eventID: String) {
         }
 
         return ScheduleInformation(
+            eventID = eventID,
             superscoutIDs = listOf(7, 8, 9, 10, 11, 12),
             scoutingSchedule = schedules.mapValues { ScoutingSchedule(it.value) }
         )
